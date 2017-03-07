@@ -42,7 +42,7 @@ move'' acc _ (Dir _ 0) = acc
 move'' acc l (Dir t s) = do
   let loc = step 1 l
   let ls  = move'' acc loc (Dir t (s - 1))
-  loc  : ls
+  loc : ls
 
 turn :: Turn -> Loc -> Loc
 turn L (Loc x y d) = Loc x y (left d)
