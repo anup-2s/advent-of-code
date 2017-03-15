@@ -83,7 +83,7 @@ p2 =
 
 
 main = do
-  file <- readFile "./sample.in"
+  file <- readFile "sample.in"
   -- let file' = "R8, R4, R4, R8"
   -- let file'' = "R2, L3"
   putStrLn $ (++) "Part 1: " . show . distFrom . p1 . splitMoves $ file
