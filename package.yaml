@@ -22,7 +22,8 @@ library:
 
 executables:
   day-1:
-    main: Day1.Main
+    main: Main
+    source-dirs: day1
     ghc-options: [ -threaded, -rtsopts, -with-rtsopts=-N]
 
 tests:

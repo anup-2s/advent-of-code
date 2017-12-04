@@ -1,4 +1,4 @@
-module Day1.Main where
+module Main where
 
 doCaptcha :: [Int] -> Int
 doCaptcha _ = 3
