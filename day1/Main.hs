@@ -1,7 +1,14 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main where
 
-doCaptcha :: [Int] -> Int
-doCaptcha _ = 3
+import Paths_aoc2017
+
+file :: IO FilePath
+file = getDataFileName "data/1-1"
+
+getData :: IO String
+getData = readFile =<< file
 
 main :: IO ()
-main = print $ doCaptcha []
+main = print =<< getData
