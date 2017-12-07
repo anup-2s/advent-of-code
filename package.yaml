@@ -19,6 +19,8 @@ ghc-options: [-Wall, -Wwarn]
 
 library:
   source-dirs: src
+  other-modules:
+  - Paths_aoc2017
 
 data-files:
   - data/*
