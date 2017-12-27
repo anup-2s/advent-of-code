@@ -35,6 +35,14 @@ executables:
     - Paths_aoc2017
     dependencies:
     - aoc2017
+  day-2:
+    main: Main
+    source-dirs: day2
+    ghc-options: [ -threaded, -rtsopts, -with-rtsopts=-N]
+    other-modules:
+    - Paths_aoc2017
+    dependencies:
+    - aoc2017
 
 
 tests:
