@@ -47,6 +47,14 @@ executables:
   day-3:
     main: Main
     source-dirs: day3
+    ghc-options: [ -threaded, -rtsopts, -with-rtsopts=-N, -O2]
+    other-modules:
+    - Paths_aoc2017
+    dependencies:
+    - aoc2017
+  day-4:
+    main: Main
+    source-dirs: day4
     ghc-options: [ -threaded, -rtsopts, -with-rtsopts=-N]
     other-modules:
     - Paths_aoc2017
