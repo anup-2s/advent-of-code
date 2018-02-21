@@ -5,6 +5,7 @@ module Main where
 import Data.Char (digitToInt)
 import Data.Text (strip, pack, unpack)
 import Paths_aoc2017
+import Lib (rotate)
 import System.Environment (getArgs)
 import System.Exit (exitSuccess)
 
@@ -13,10 +14,6 @@ file = getDataFileName "data/1-1"
 
 getData :: IO [Int]
 getData = map digitToInt . unpack . strip . pack <$> (readFile =<< file)
-
-rotate :: Int -> [Int] -> [Int]
-rotate _ [] = []
-rotate n xs = drop n xs ++ take n xs
 
 formPairs :: Int -> [Int] -> [(Int, Int)]
 formPairs n l = zip l $ rotate n l
