@@ -6,14 +6,12 @@ import Control.Arrow ((&&&))
 import Data.Char (isSpace)
 import Data.Text (split, pack, unpack)
 import Paths_aoc2017
+import Lib (wordToInt)
 import System.Environment (getArgs)
 import System.Exit (exitSuccess)
 
 file :: IO FilePath
 file = getDataFileName "data/2-1"
-
-wordToInt :: String -> Int
-wordToInt = read
 
 getData :: IO [[Int]]
 getData = map (map (wordToInt . unpack) . split isSpace . pack) . lines <$> (readFile =<< file)

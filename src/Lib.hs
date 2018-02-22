@@ -1,11 +1,11 @@
 module Lib
-  ( someFunc
-  , rotate
+  ( rotate
+  , wordToInt
   ) where
-
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
 
 rotate :: Int -> [a] -> [a]
 rotate _ [] = []
 rotate n xs = drop n xs ++ take n xs
+
+wordToInt :: String -> Int
+wordToInt = read
