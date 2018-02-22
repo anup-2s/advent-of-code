@@ -17,7 +17,7 @@ getData :: IO [[Int]]
 getData = map (map (wordToInt . unpack) . split isSpace . pack) . lines <$> (readFile =<< file)
 
 usage :: IO ()
-usage = putStrLn "Usage: stack exec day-n [--two] [...args]"
+usage = putStrLn "Usage: stack exec day-n -- [--two] [...args]"
 
 maxMinDiff :: [Int] -> Int
 maxMinDiff = uncurry (-) . (maximum &&& minimum)

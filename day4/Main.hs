@@ -14,7 +14,7 @@ getData :: IO [[String]]
 getData = map words . lines <$> (readFile =<< file)
 
 usage :: IO ()
-usage = putStrLn "Usage: stack exec day-n [--two] [...args]"
+usage = putStrLn "Usage: stack exec day-n -- [--two] [...args]"
 
 hasDupes :: [String] -> Bool
 hasDupes xs = null . (\\) xs $ nub xs

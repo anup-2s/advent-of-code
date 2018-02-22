@@ -16,7 +16,7 @@ getData :: IO (IntMap Int)
 getData = IntMap.fromList . zip [0 ..] . map read . lines <$> (readFile =<< file)
 
 usage :: IO ()
-usage = putStrLn "Usage: stack exec day-n [--two] [...args]"
+usage = putStrLn "Usage: stack exec day-n -- [--two] [...args]"
 
 traverseList :: (Int -> Int) -> Int -> IntMap Int -> Int -> Int -> Int
 traverseList transform end dict pos jumps

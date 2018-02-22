@@ -19,7 +19,7 @@ formPairs :: Int -> [Int] -> [(Int, Int)]
 formPairs n l = zip l $ rotate n l
 
 usage :: IO ()
-usage = putStrLn "Usage: stack exec day-n [--two] [...args]"
+usage = putStrLn "Usage: stack exec day-n -- [--two] [...args]"
 
 doOne :: [String] -> IO ()
 doOne _ = print . sum . map fst . filter (uncurry (==)) <$> formPairs 1 =<< getData

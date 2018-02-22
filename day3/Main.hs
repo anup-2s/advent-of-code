@@ -14,7 +14,7 @@ getData :: IO Int
 getData = return 361527
 
 usage :: IO ()
-usage = putStrLn "Usage: stack exec day-n [--two] [...args]"
+usage = putStrLn "Usage: stack exec day-n -- [--two] [...args]"
 
 doOne :: Int -> Int
 doOne x =
