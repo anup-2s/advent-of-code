@@ -49,6 +49,9 @@ executables:
   day-5:
     <<: *fast-exe
     source-dirs: day5
+  day-6:
+    <<: *base-exe
+    source-dirs: day6
 
 
 tests:
