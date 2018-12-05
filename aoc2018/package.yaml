@@ -1,0 +1,43 @@
+name: aoc2018
+version: 0.1.0.0
+#synopsis:
+#description:
+homepage: https://github.com/anup-2s/advent-of-code
+license: BSD3
+author: Anup Kishore
+maintainer: anup.kishore@gmail.com
+copyright: 2018 Anup Kishore
+category: Web
+extra-source-files:
+  - README.md
+
+data-files:
+  - data/*
+
+ghc-options: [-Wall, -Wwarn]
+dependencies:
+  - base >= 4.7 && < 5
+  - text >=1.2.2.0
+
+library:
+  source-dirs: src
+  other-modules:
+    - Paths_aoc2018
+
+executables:
+  day-1: &base-exe
+    main: Main
+    source-dirs: day1
+    ghc-options: [-threaded, -rtsopts, -with-rtsopts=-N, -O2]
+    other-modules:
+      - Paths_aoc2018
+    dependencies:
+      - aoc2018
+  # day-2:
+  #   <<: *base-exe
+  #   source-dirs: day2
+
+tests:
+  day-1-tests: &base-test
+    source-dirs: day1
+    main: Spec.hs
