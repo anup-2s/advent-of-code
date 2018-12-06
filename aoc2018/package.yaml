@@ -8,6 +8,7 @@ author: Anup Kishore
 maintainer: anup.kishore@gmail.com
 copyright: 2018 Anup Kishore
 category: Web
+
 extra-source-files:
   - README.md
 
@@ -34,25 +35,33 @@ default-extensions:
 dependencies:
   - base >= 4.7 && < 5
   - text >=1.2.2.0
+  - hspec
 
 library:
   source-dirs: src
   other-modules:
     - Paths_aoc2018
 
-executables:
-  day-1: &base-exe
-    main: Main
+internal-libraries:
+  l-day1: &lib1
     source-dirs: day1
     other-modules:
       - Paths_aoc2018
     dependencies:
       - aoc2018
+
+executables:
+  day1: &base-exe
+    main: Main
+    ghc-options: [-threaded, -rtsopts, -with-rtsopts=-N, -O2]
+    <<: *lib1
   # day-2:
   #   <<: *base-exe
-  #   source-dirs: day2
+  #   <<: *lib2
 
 tests:
   day-1-tests: &base-test
-    source-dirs: day1
-    main: Spec.hs
+    defaults: hspec/hspec@master
+    dependencies:
+      - name: l-day1
+        mixin: (Main as Day1)
