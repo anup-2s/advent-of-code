@@ -35,7 +35,7 @@ default-extensions:
 dependencies:
   - base >= 4.7 && < 5
   - text >=1.2.2.0
-  - hspec
+  - megaparsec
 
 library:
   source-dirs: src
@@ -49,6 +49,7 @@ internal-libraries:
       - Paths_aoc2018
     dependencies:
       - aoc2018
+      - containers
 
 executables:
   day1: &base-exe
