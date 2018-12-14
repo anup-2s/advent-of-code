@@ -46,6 +46,7 @@ dependencies:
   - base >= 4.7 && < 5
   - text >=1.2.2.0
   - megaparsec
+  - containers
 
 library:
   source-dirs: src
@@ -58,7 +59,6 @@ internal-libraries:
     source-dirs: day1
     dependencies:
       - aoc2018
-      - containers
   l-day2: &LIB2
     <<: *LIB
     source-dirs: day2
