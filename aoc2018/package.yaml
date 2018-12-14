@@ -32,6 +32,16 @@ default-extensions:
   - DeriveGeneric
   - RankNTypes
 
+_base-internal-lib: &LIB
+  other-modules:
+    - Paths_aoc2018
+  dependencies:
+    - aoc2018
+
+_base-exe: &BASE_EXE
+  main: Main
+  ghc-options: [-threaded, -rtsopts, -with-rtsopts=-N, -O2]
+
 dependencies:
   - base >= 4.7 && < 5
   - text >=1.2.2.0
@@ -43,26 +53,29 @@ library:
     - Paths_aoc2018
 
 internal-libraries:
-  l-day1: &lib1
+  l-day1: &LIB1
+    <<: *LIB
     source-dirs: day1
-    other-modules:
-      - Paths_aoc2018
     dependencies:
       - aoc2018
       - containers
+  l-day2: &LIB2
+    <<: *LIB
+    source-dirs: day2
 
 executables:
-  day1: &base-exe
-    main: Main
-    ghc-options: [-threaded, -rtsopts, -with-rtsopts=-N, -O2]
-    <<: *lib1
-  # day-2:
-  #   <<: *base-exe
-  #   <<: *lib2
+  day1:
+    <<: *BASE_EXE
+    <<: *LIB1
+  day2:
+    <<: *BASE_EXE
+    <<: *LIB2
 
 tests:
-  day-1-tests: &base-test
+  all-tests:
     defaults: hspec/hspec@master
     dependencies:
       - name: l-day1
         mixin: (Main as Day1)
+      - name: l-day2
+        mixin: (Main as Day2)
