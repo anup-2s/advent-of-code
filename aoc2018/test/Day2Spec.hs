@@ -1,12 +1,18 @@
 module Day2Spec where
 
-import           Day2       (p1)
+import           Day2       (p1, p2)
 import           Test.Hspec
 
 spec :: Spec
-spec =
+spec = do
   describe "p1" $
-  it "currectly satisfies supplied examples" $ p1 payload `shouldBe` 12
-  where
-    payload =
-      ("abcdef", ["bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab"])
+    let payload =
+          ( "abcdef"
+          , "bababc"
+          , ["abbcde", "abcccd", "aabcdd", "abcdee", "ababab"])
+     in it "currectly satisfies supplied examples" $ p1 payload `shouldBe` 12
+  describe "p2" $
+    let payload =
+          ("abcde", "fghij", ["klmno", "pqrst", "fguij", "axcye", "wvxyz"])
+     in xit "currectly satisfies supplied examples" $
+        p2 payload `shouldBe` "fgij"
