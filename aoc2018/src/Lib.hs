@@ -7,6 +7,12 @@ import           Paths_aoc2018
 import           Prelude         hiding (readFile)
 import           Text.Megaparsec (runParser)
 
+printEither :: (Show a, Show err) => String -> Either err a -> IO ()
+printEither problem err =
+  case err of
+    Right ans -> putStrLn $ problem ++ show ans
+    Left err' -> print err'
+
 readDataFile :: FilePath -> IO Text
 readDataFile filePath = readFile =<< getDataFileName filePath
 

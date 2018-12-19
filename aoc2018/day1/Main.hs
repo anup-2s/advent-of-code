@@ -4,7 +4,7 @@ import           Control.Applicative        (empty, many, (<|>))
 import           Control.Arrow              (left)
 import           Data.Set                   (Set)
 import qualified Data.Set                   as Set
-import           Lib                        (parseDataFile)
+import           Lib                        (parseDataFile, printEither)
 import           Parsers                    (ParseError, Parser)
 import           Text.Megaparsec.Char       (space1)
 import qualified Text.Megaparsec.Char.Lexer as Lexer
@@ -36,16 +36,10 @@ p2 xs = getRepeatedTotal Set.empty . scanl (+) 0 . cycle $ xs
       | Set.member val set = Right val
       | otherwise = getRepeatedTotal (Set.insert val set) xss
 
-printAns :: (Show a) => String -> Either Error a -> IO ()
-printAns problem err =
-  case err of
-    Right ans -> putStrLn $ problem ++ show ans
-    Left err' -> print err'
-
 readData :: IO (Either Error [Int])
 readData = left ParsingError <$> parseDataFile parser "data/day1/p1"
 
 main :: IO ()
 main = do
-  printAns "Part 1: " =<< fmap p1 <$> readData
-  printAns "Part 2: " . (=<<) p2 =<< readData
+  printEither "Part 1: " =<< fmap p1 <$> readData
+  printEither "Part 2: " . (=<<) p2 =<< readData

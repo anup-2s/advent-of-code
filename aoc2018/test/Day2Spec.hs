@@ -14,5 +14,5 @@ spec = do
   describe "p2" $
     let payload =
           ("abcde", "fghij", ["klmno", "pqrst", "fguij", "axcye", "wvxyz"])
-     in xit "currectly satisfies supplied examples" $
+     in it "currectly satisfies supplied examples" $
         p2 payload `shouldBe` "fgij"

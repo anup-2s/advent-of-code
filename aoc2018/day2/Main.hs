@@ -1,20 +1,23 @@
 module Main where
 
 import           Control.Arrow ((&&&))
-import           Data.Either   (rights)
 import qualified Data.List     as List
+import           Data.Ord      (comparing)
 import           Data.Set      (Set, fromList)
 import qualified Data.Set      as Set
 import           Data.Text     (Text, unpack)
-import           Lib           (readDataFile)
+import           Lib           (printEither, readDataFile)
 
 data Error
   = NoElementsSupplied
   | OnlyOneElementSupplied
   deriving (Show, Eq)
 
-type MoreThanOne a = (String, String, [String])
+type MoreThanOne a = (a, a, [a])
 
+type AtLeastOne a = (a, [a])
+
+safeHdHd :: [a] -> Either Error (MoreThanOne a)
 safeHdHd []       = Left NoElementsSupplied
 safeHdHd [_]      = Left OnlyOneElementSupplied
 safeHdHd (x:y:xs) = Right (x, y, xs)
@@ -26,21 +29,21 @@ parse :: Text -> Either Error (MoreThanOne String)
 parse = safeHdHd . lines . unpack
 
 p2 :: MoreThanOne String -> String
-p2 = merge . findBest . computeBests
+p2 = uncurry merge . findBest . makePairs
   where
-    penalize :: String -> String -> Int
-    penalize str str2 = length . filter (uncurry (==)) $ zip str str2
-    best :: String -> String -> [String] -> String
-    best _ acc [] = acc
-    best from acc (x:xs) = minBy (penalize from) [acc', best from acc' xs]
-      where
-        acc' = minBy (penalize from) [acc, x]
-    computeBests :: MoreThanOne String -> MoreThanOne (String, String)
-    computeBests (x, y, xs) = rights . map safeHdHd . tails $ x : y : xs
-    findBest :: MoreThanOne (String, String) -> (String, String)
-    findBest = undefined
-    merge :: (String, String) -> String
-    merge = undefined
+    choose2 :: [a] -> [(a, a)]
+    choose2 xs = do
+      (x:xs') <- List.tails xs
+      y <- xs'
+      return (x, y)
+    makePairs :: MoreThanOne String -> AtLeastOne (String, String)
+    makePairs (x, y, xs) = (,) (x, y) . drop 1 . choose2 $ x : y : xs
+    score :: String -> String -> Int
+    score chars = length . filter id . zipWith (/=) chars
+    findBest :: AtLeastOne (String, String) -> (String, String)
+    findBest = List.minimumBy (comparing $ uncurry score) . uncurry (:)
+    merge :: String -> String -> String
+    merge chars = map fst . filter (uncurry (==)) . zip chars
 
 p1 :: MoreThanOne String -> Int
 p1 (x, y, xs) =
@@ -56,4 +59,10 @@ getData :: IO (Either Error (MoreThanOne String))
 getData = parse <$> readDataFile "data/day2/p1"
 
 main :: IO ()
-main = print . fmap p1 =<< getData
+main = do
+  body <- getData
+  printEither "Part 1: " $ p1 <$> body
+  printEither "Part 2: " $ p2 <$> body
+  print "Hi"
+  -- printEither "Part 1: " =<< fmap p1 <$> readData
+  -- printEither "Part 2: " . (=<<) p2 =<< readData
